@@ -1,34 +1,21 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from 'react-redux'
+import {layDanhSachPhimAction} from '../../redux/actions/PhimActions'
 
-export default class Home extends Component {
+class Home extends Component {
   //state danh sach phim
-  state = {
-    arrFilms: [],
-  };
+  // state = {
+  //   arrFilms: [],
+  // };
   loadFilm = () => {
-    const promise = axios({
-      url:
-        "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01",
-      method: "GET",
-    });
-    //xu ly thanh cong((result) => )
-    promise
-      .then((result) => {
-        console.log("result", result.data);
-        this.setState({
-          arrFilms: result.data,
-        });
-      })
-      .catch((error) => {
-        console.log("err", error.response.data);
-      });
+   this.props.dispatch(layDanhSachPhimAction())
   };
   renderFilms = () => {
-    return this.state.arrFilms.map((film, index) => {
+    return this.props.mangPhim.map((film, index) => {
       return (
         <div className="col-4" key={index}>
-          <img className="card-img-top" src={film.hinhAnh} alt = {film.hinhAnh} />
+          <img className="card-img-top" src={film.hinhAnh} alt={film.hinhAnh} />
           <div className="card-body">
             <h4 className="card-title">{film.tenPhim}</h4>
           </div>
@@ -54,8 +41,15 @@ export default class Home extends Component {
   }
 
   //hàm giống hàm render của react component kế thừa nên có
-  componentDidMount(){
-    //các api muốn gọi sau khi gioa diện render thì sẽ gọi trong hàm này
+  componentDidMount() {
+    //cac api muon goi sau khi giao dien render thi se  goi trong ham nay
     this.loadFilm();
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    mangPhim: state.PhimReducer.mangPhim
+  }
+}
+export default  connect(mapStateToProps)(Home);

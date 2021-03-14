@@ -33,7 +33,7 @@ export default class Header extends Component {
             <li className="nav-item dropdown">
               <NavLink activeClassName="bg-dark text-light"
                 className="nav-link dropdown-toggle"
-                to="/login"
+                to="/register"
                 id="dropdownId"
                 data-toggle="dropdown"
                 aria-haspopup="true"

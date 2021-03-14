@@ -5,12 +5,14 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Contact from "./pages/Contact/Contact";
 import Header from './Components/Header/Header'
+import Loading from "./Components/Loading/Loading";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Header />
+        <Loading />
         <Switch>
           {/*duyet theo tung / trang */}
           <Route exact path="/home" component={Home} />
